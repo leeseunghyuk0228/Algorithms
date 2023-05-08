@@ -44,7 +44,7 @@ int main() {
             if (jews[j].weight > bags[i])break;
             idx++; pq.push(jews[j].price);
         }
-        if (!pq.empty())
+        if (pq.size())
         {
             res += pq.top(); pq.pop();
         }
