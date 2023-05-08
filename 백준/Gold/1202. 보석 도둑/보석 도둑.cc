@@ -1,36 +1,23 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <algorithm>
 using namespace std;
 
-struct j {
-    int weight, price;
-    bool operator < (struct j next) const {
-        if (weight < next.weight) return true;
-        if (weight > next.weight) return false;
-        return false;
-    }
-};
-vector <j> jews;
+pair<int, int> jews[300000];
 
 int bags[300000];
 int N, M, idx = 0;
 long long res = 0;
 
 void input() {
+    //scanf("%d %d", &N, &M);
     cin >> N >> M;
-    for (int i = 0; i < N; i++) {
-        int w, p;
-        cin >> w >> p;
-        jews.push_back({ w,p });
-    }
-
+    for (int i = 0; i < N; i++) cin >> jews[i].first >> jews[i].second;
     for (int i = 0; i < M; i++)cin >> bags[i];
-
-    sort(bags, bags+M);
-    sort(jews.begin(), jews.end());
-
+    sort(jews, jews + N);
+    sort(bags, bags + M);
 }
 
 int main() {
@@ -41,9 +28,10 @@ int main() {
 
     for (int i = 0; i < M; i++) {
         for (int j = idx; j < N; j++) {
-            if (jews[j].weight > bags[i])break;
-            idx++; pq.push(jews[j].price);
+            if (jews[j].first > bags[i])break;
+            idx++; pq.push(jews[j].second);
         }
+
         if (pq.size())
         {
             res += pq.top(); pq.pop();
