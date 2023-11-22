@@ -6,7 +6,7 @@ using namespace std;
 
 int n, dat[8001];
 int mode_cnt;
-double SUM = 0;
+double SUM;
 vector<int> v;
 
 void get_mean() {
