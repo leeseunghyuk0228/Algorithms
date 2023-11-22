@@ -41,10 +41,10 @@ int main() {
     cin >> n;
 
     for (int i = 0; i < n; i++) {
-        double num;
-        cin >> num;
-        SUM += num;
-        int a = num+ 4000;
+        int a;
+        cin >> a;
+        SUM += a;
+        a+=4000;
         dat[a]++;
 
         if (dat[a] > mode_cnt) mode_cnt = dat[a];
