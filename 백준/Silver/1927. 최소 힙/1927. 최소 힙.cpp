@@ -78,7 +78,7 @@ void deleteHeap(Heap* pHp)
     pHp->arr[0] = pHp->arr[pHp->size - 1];
     pHp->size--;
     shiftdown(pHp->arr, 0, pHp->size);
-    printf("%lld\n", minNum); // %lld·Î ¼öÁ¤
+    printf("%lld\n", minNum); // %lldï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
 
 int main()
@@ -91,7 +91,7 @@ int main()
     for (int i = 0; i < n; i++)
     {
         long long num;
-        scanf("%lld", &num); // %lld·Î ¼öÁ¤
+        scanf("%lld", &num); // %lldï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (num == 0)
             deleteHeap(&heap);
         else
