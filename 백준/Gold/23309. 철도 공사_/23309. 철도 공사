@@ -1,1 +1,129 @@
 
+#include <iostream>
+#include <string>
+#include <unordered_map>
+using namespace std;
+
+typedef struct Subway
+{
+	Subway* next;
+	Subway* prev;
+	int number;
+}subway;
+
+unordered_map<int, int> um;
+
+subway POOL[1500005];
+subway* head = nullptr;
+
+int N, M,idx=0;
+
+void create_list(int num)
+{
+	um[num] = idx;
+	Subway* temp = &POOL[idx++];
+
+	temp->number = num;
+
+	if (head == nullptr)
+	{
+		head = temp;
+	}
+	else if (head->next==nullptr)
+	{
+		temp->next = head;
+		temp->prev = head;
+		head->prev = temp;
+		head->next = temp;
+	}
+	else
+	{
+		temp->prev = head->prev;
+		temp->next = head;
+		head->prev->next = temp;
+		head->prev = temp;
+		
+		
+	}
+
+}
+
+void add_subway(int num, int val, char type)
+{
+	um[val] = idx;
+	subway* temp = &POOL[idx++];
+	subway Now = POOL[um[num]];
+
+	temp->number = val;
+
+	if (type == 'N')
+	{
+		cout << Now.next->number << '\n';
+		temp->next = POOL[um[num]].next;
+		POOL[um[num]].next->prev = temp;
+
+		POOL[um[num]].next = temp;
+		temp->prev = &POOL[um[num]];
+	}
+
+	if (type == 'P')
+	{
+		cout << Now.prev->number << '\n';
+		temp->prev = Now.prev;
+		POOL[um[num]].prev->next = temp;
+
+		POOL[um[num]].prev = temp;
+		temp->next = &POOL[um[num]];
+	}
+}
+
+void delete_subway(int num, char type)
+{
+	int temp_index = um[num];
+	subway Now = POOL[temp_index];
+
+	if (type == 'N')
+	{
+		cout << Now.next->number << '\n';
+		Now.next->next->prev = &POOL[um[num]];
+		POOL[um[num]].next = Now.next->next;
+		
+	}
+	else if (type == 'P')
+	{
+		cout << Now.prev->number << '\n';
+		Now.prev->prev->next = &POOL[um[num]];
+		POOL[um[num]].prev = Now.prev->prev;
+		
+	}
+}
+
+int main() {
+	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+
+	int num;
+	cin >> N >> M;
+
+	for (int i = 0; i < N; i++)
+	{
+		cin >> num;
+		create_list(num);
+	}
+
+
+	for (int i = 0; i <M; i++)
+	{
+		string cmd; 
+		cin >> cmd >> num;
+
+		if (cmd[0] == 'C') delete_subway(num,cmd[1]);
+		else
+		{
+			int val;
+			cin >> val;
+			add_subway(num,val,cmd[1]);
+		}
+
+	}
+
+}
