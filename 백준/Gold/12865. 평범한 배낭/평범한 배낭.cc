@@ -2,18 +2,15 @@
 #define MAX(a,b)((a>b)?a:b)
 using namespace std;
 
-struct Product
-{
-	int weights, value;
-}products[101];
 
-int N, max_weight, now_weight,dp[101][100001];
+int weights[101], values[101];
+int N, max_weight, dp[101][100001];
 
 void input()
 {
 	cin >> N >> max_weight;
 	for (int i = 1; i <= N; i++)
-		cin >> products[i].weights >> products[i].value;
+		cin >> weights[i] >> values[i];
 }
 
 int main()
@@ -26,10 +23,10 @@ int main()
 	{
 		for (int p = 1; p <= N; p++)
 		{
-			if (products[p].weights > w)dp[p][w] = dp[p - 1][w];
+			if (weights[p] > w)dp[p][w] = dp[p - 1][w];
 			else
 			{
-				int cmp1 = dp[p - 1][w - products[p].weights] + products[p].value;
+				int cmp1 = dp[p - 1][w - weights[p]] + values[p];
 				int cmp2 = dp[p - 1][w];
 				dp[p][w] = MAX(cmp1,cmp2);
 			}
