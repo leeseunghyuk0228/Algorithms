@@ -4,9 +4,9 @@
 using namespace std;
 
 int N, M;
-vector<int> v;
 
-void input()
+
+void input(vector<int> &v)
 {
 	cin >> N;
 	for (int i = 0; i < N; i++)
@@ -18,7 +18,7 @@ void input()
 	cin >> M;
 }
 
-void search(long long value)
+void search(vector<int>& v, long long value)
 {
 	int low = 0, high = N - 1, mid = N / 2;
 
@@ -41,13 +41,15 @@ void search(long long value)
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(0);
-	input();
+	vector<int> v;
+
+	input(v);
 	sort(v.begin(), v.end());
 
 	for (int i = 0; i < M; i++)
 	{
 		long long temp;
 		cin >> temp;
-		search(temp);
+		search(v,temp);
 	}
 }
