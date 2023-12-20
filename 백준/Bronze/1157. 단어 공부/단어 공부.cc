@@ -1,46 +1,34 @@
 #include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <string>
+#include <sstream>
 using namespace std;
 
-unordered_map<char, int> um;
-vector<char> v;
-int max_num = -21e8;
-char ans;
+string s;
+int A[26];
+int max_num;
+int max_pos;
+int max_cnt;
 
 int main() {
-	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    getline(cin, s);
+    for (int i = 0; i < s.length(); i++) A[s[i] >= 97 ? (s[i] - 97) : (s[i] - 65)]++;
+    for (int i = 0; i < 26; i++) {
+        if (A[i] > max_num) {
+            max_num = A[i];
+            max_pos = i;
+            max_cnt = 1;
+        }
+        else if (A[i] ==max_num)
+        {
+            max_cnt++;
+        }
 
-	string s;
-	cin >> s;
+    }
 
-	for (auto c : s)
-	{
-		c = toupper(c);
-		if (um.find(c) != um.end())
-			um[c]++;
-		else
-		{
-			um[c] = 1;
-			v.push_back(c);
-		}
-		if (um[c] > max_num) max_num = um[c];
-	}
+    if (max_cnt == 1) {
+        cout << char(65 + max_pos);
+    }
+    else cout << "?";
 
-	int cnt = 0;
-	
-	for (auto c : v)
-	{
-		if (um[c] < max_num) continue;
-		cnt++;
-		ans = c;
-	}
-
-	if (cnt >=2) cout << '?';
-	else {
-		cout << ans;
-	}
-
-	return 0;
+    return 0;
 }
