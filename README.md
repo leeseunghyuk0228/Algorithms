@@ -7,3 +7,4 @@ This is a auto push repository for Baekjoon Online Judge created with [BaekjoonH
   - rotate(first,middle,last)
   - upper_bound(start,end,value)
   - lower_bound(start,end,value)
+  - istringstream - tokenStream(s)
