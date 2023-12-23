@@ -1,5 +1,5 @@
 #include <iostream>
-#include <set>
+
 using namespace std;
 
 
@@ -10,23 +10,24 @@ int main() {
 	cin >> n;
 	for (int i = 0; i < n; i++)
 	{
-		set<char> st;
 		string s;
 		cin >> s;
-
+		int arr[26] = { 0, };
 		int flag = 1;
 		int cursize = s.length();
 		for (int idx = 0; idx < cursize; idx++)
 		{
-			if (st.find(s[idx]) != st.end())
+			if (arr[s[idx] - 97])
 			{
-				if (s[idx] != s[idx - 1])
+				if (s[idx - 1] == s[idx])
+					continue;
+				else
 				{
 					flag = 0; break;
 				}
-				continue;
 			}
-			st.insert(s[idx]);
+			else arr[s[idx] - 97] = 1;
+
 		}
 		ans += flag;
 	}
