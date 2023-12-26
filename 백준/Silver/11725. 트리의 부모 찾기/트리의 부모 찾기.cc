@@ -1,49 +1,47 @@
 #include <iostream>
 #include <vector>
-#include <queue>
 using namespace std;
 
-vector<int> v[100001];
-int visited[100001];
-int ans[100001];
-int n;
+vector<int> vec[100001];
+bool visit[100001] = {false};
+int parent[100001] = {0};
 
-void input()
-{
-	cin >> n;
-	for (int i = 0; i < n-1; i++)
-	{
-		int n1, n2;
-		cin >> n1 >> n2;
-		v[n1].push_back(n2);
-		v[n2].push_back(n1);
-	}
+void dfs(int x){
+
+    visit[x] = true;
+
+    for(int num : vec[x]){
+        if(visit[num] == false){
+            parent[num] = x;
+            dfs(num);
+        }
+    }
+
 }
 
-void bfs()
-{
-	queue<int>q;
-	q.push(1);
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-	while (!q.empty())
-	{
-		int now = q.front();
-		q.pop();
-		for (auto child : v[now])
-		{
-			if (visited[child])continue;
-			ans[child] = now;
-			visited[child] = 1;
-			q.push(child);
-		}
-	}
-}
+    int n;
+    cin>>n;
 
-int main() {
-	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-	input();
-	bfs();
-	for (int i = 2; i <= n; i++)
-		cout << ans[i] << '\n';
-		
+    for(int i = 0 ; i < n - 1 ; i++){
+        int num1, num2;
+        cin>>num1>>num2;
+
+        vec[num1].push_back(num2);
+        vec[num2].push_back(num1);
+
+    }
+
+    dfs(1);
+
+    for(int i = 2 ; i <= n ; i++){
+        cout<<parent[i]<<'\n';
+    }
+
+    return 0;
+
 }
