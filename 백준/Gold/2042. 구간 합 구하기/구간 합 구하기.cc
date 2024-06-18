@@ -33,6 +33,7 @@ long long query(int node, int st, int en, int qst, int qen)
 }
 
 int main() {
+	std::ios_base::sync_with_stdio(false); std::cin.tie(NULL); std::cout.tie(NULL);
 	int N, M, K;
 	std::cin >> N >> M >> K;
 	v.assign(N * 4, 0);
@@ -56,5 +57,5 @@ int main() {
 		else if(a==2)
 			std::cout << query(1, 0, N-1 , b - 1, c - 1) << '\n';
 	}
-
+    return 0;
 }
