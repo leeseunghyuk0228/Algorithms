@@ -1,47 +1,51 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
+#include <vector>
 
-using namespace std;
+int N, M;
+int arr[200000];
 
-int main(void)
+int main()
 {
-	int n, c, num, st, router, start, end, mid, ans = 0;
-	cin >> n >> c;
-	vector<int> pos;
-	for (int i = 0; i < n; i++)
-	{
-		cin >> num;
-		pos.push_back(num);
-	}
-	sort(pos.begin(), pos.end());
-	start = 1;                             // 최소 거리
-	end = pos[n - 1] - pos[0];             // 최대 거리
+	std::ios_base::sync_with_stdio(false); std::cin.tie(NULL); std::cout.tie(NULL);
+	std::cin >> N >> M;
 
-	while (start <= end)
-	{
-		router = 1;
-		mid = (start + end) / 2;
-		st = pos[0];
+	
+	for (int i = 0; i < N; i++)std::cin >> arr[i];
 
-		for (int i = 1; i < n; i++)
+	std::sort(arr, arr + N);
+
+	int left = 1; // 최소 거리
+	int right = arr[N - 1] - arr[0]; // 최대 거리
+
+	int mid, cnt;
+	int res = 0;
+	int temp;
+
+	while (left <= right)
+	{
+		cnt = 1;
+		mid = (left + right) / 2;
+		temp = arr[0];
+
+		for (int i = 1; i < N; i++)
 		{
-			if (pos[i] - st >= mid)
+			if (arr[i] - temp >= mid)
 			{
-				router++;
-				st = pos[i];
+				cnt++;
+				temp = arr[i];
 			}
 		}
 
-		if (router >= c)
+		if (cnt >= M)
 		{
-			ans = max(ans, mid);
-			start = mid + 1;
+			res = std::max(res, mid);
+			left = mid + 1;
 		}
-
 		else
-			end = mid - 1;
+			right = mid - 1;
 	}
-	cout << ans;
+
+	std::cout << res;
 	return 0;
 }
